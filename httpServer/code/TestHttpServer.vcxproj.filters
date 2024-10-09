@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="code">
+      <UniqueIdentifier>{7a72b539-6aac-462d-a749-f3e85a61c703}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="mysql">
+      <UniqueIdentifier>{78d8caf7-149f-4bac-b908-daeb087df094}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="protobuf">
+      <UniqueIdentifier>{cfc09cf7-ac2b-4490-b5c4-c2fee53838b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="share">
+      <UniqueIdentifier>{1602929e-b839-41fb-aeb4-11d40f664679}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="TestHttpServer.cpp">
+      <Filter>code</Filter>
+    </ClCompile>
+    <ClCompile Include="IDefine.cpp">
+      <Filter>code</Filter>
+    </ClCompile>
+    <ClCompile Include="HttpServer.cpp">
+      <Filter>code</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="IDefine.h">
+      <Filter>code</Filter>
+    </ClInclude>
+    <ClInclude Include="HttpServer.h">
+      <Filter>code</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

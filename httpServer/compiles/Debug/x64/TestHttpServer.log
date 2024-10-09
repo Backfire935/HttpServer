@@ -1,0 +1,9 @@
+﻿  HttpServer.cpp
+  IDefine.cpp
+  TestHttpServer.cpp
+D:\test\CPlusPlus\HttpServer\httpServer\code\IDefine.cpp(9,25): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+D:\test\CPlusPlus\HttpServer\httpServer\code\HttpServer.cpp(60,12): warning C4477: “printf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“Socket”
+D:\test\CPlusPlus\HttpServer\httpServer\code\HttpServer.cpp(60,12): message : 请考虑在格式字符串中使用“%lld”
+D:\test\CPlusPlus\HttpServer\httpServer\code\HttpServer.cpp(60,12): message : 请考虑在格式字符串中使用“%Id”
+D:\test\CPlusPlus\HttpServer\httpServer\code\HttpServer.cpp(60,12): message : 请考虑在格式字符串中使用“%I64d”
+  TestHttpServer.vcxproj -> D:\test\CPlusPlus\HttpServer\httpServer\exe\TestHttpServer.exe
