@@ -123,7 +123,7 @@ namespace http
 			LOG_MSG("Init socket error in line %d err status:%d\n", __LINE__,err);
 			return;
 		}
-		//2.初始化请求 响应数据对象
+		//2.初始化请求和响应的数据对象
 		for (int i = 0; i < MAX_THREAD_COUNT; i++)
 		{
 			m_Request[i] = new S_HTTP_BASE();
@@ -135,8 +135,56 @@ namespace http
 		//3.初始化mysql库
 
 		//4.运行线程池
-
+		runThread();
 		//5.运行主线程监听新的连接
+
+	}
+
+	//初始化线程池，子线程与主线程分离
+	void HttpSevrer::runThread()
+	{
+		//运行线程
+		for (int i = 0; i < MAX_THREAD_COUNT; i++)
+			m_Thread[i].reset(new std::thread(HttpSevrer::run, this,  i));
+		//分离
+		for (int i = 0; i < MAX_THREAD_COUNT; i++)
+			m_Thread[i]->detach();
+	}
+
+	void log_UpdateConnect(int a, int b)
+	{
+#ifdef ____WIN32_
+		char ss[50];
+		memset(ss,0,50);
+		sprintf_s(ss, "connect:%d queue:%d",a,b);
+		SetWindowTextA(GetConsoleWindow(), ss);
+#endif // ____WIN32_
+
+	}
+
+	//单个工作线程唤醒入口
+	void HttpSevrer::run(HttpSevrer* serverInstance, int threadId)
+	{
+		int socketfd = -1;
+		while (true)
+		{
+			{
+				std::unique_lock<std::mutex> guard(serverInstance->m_Mutex);
+				while (serverInstance->m_Socketfds.empty())//防止虚假唤醒，如果链表中没有数据就wait，有数据就往下处理
+				{
+					LOG_MSG("************************** thread wait...%d \n", threadId);
+					serverInstance->m_Condition.wait(guard);
+				}
+				socketfd = serverInstance->m_Socketfds.front();//获取链表头部第一个数据
+				serverInstance->m_Socketfds.pop_front();//删除
+
+				LOG_MSG("************************** thread awake...%d-%d\n", (int)socketfd, threadId);
+				//输出打印
+				log_UpdateConnect(serverInstance->m_ConnectCount, serverInstance->m_Socketfds.size());
+			}
+			//开始处理socketfd
+
+		}
 
 	}
 

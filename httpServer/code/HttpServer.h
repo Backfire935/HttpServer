@@ -24,6 +24,8 @@ namespace http
 
 		int InitSocket();
 		void runServer();
+		void runThread();
+		static void run(HttpSevrer* serverInstance, int threadId);
 
 	};
 }
