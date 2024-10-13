@@ -1,7 +1,14 @@
 #include "HttpServer.h"
+#ifdef ____WIN32_
+#include<MSWSock.h>
+#else
+
+#endif
+#include <chrono>
 
 namespace http 
 {
+
 	HttpSevrer::HttpSevrer()
 	{
 
@@ -102,6 +109,8 @@ namespace http
 		return 0;
 	}
 
+
+
 	void HttpSevrer::runServer()
 	{
 		m_ConnectCount = 0;
@@ -137,8 +146,70 @@ namespace http
 		//4.运行线程池
 		runThread();
 		//5.运行主线程监听新的连接
-
+		runAccept();
 	}
+
+	int select_isread(Socket socketfd, int timeout_s, int timeout_u)
+	{
+		fd_set fds;
+		FD_ZERO(&fds);
+		FD_SET(socketfd, &fds);
+
+		timeval tv;
+		tv.tv_sec = timeout_s;
+		tv.tv_usec = timeout_u;
+
+		while (true)
+		{
+			int err = select(socketfd + 1, &fds, NULL, NULL, &tv);
+			if (err < 0 && errno == EINTR) continue;
+			return err;
+		}
+		return -1;
+	}
+
+	//主线程监听新的连接，并派发任务
+	void HttpSevrer::runAccept()
+	{
+		while (true)
+		{
+			int value = select_isread(m_Listenfd, 0 ,5000);
+			if (value == 0)continue;
+
+			socklen_t clilen = sizeof(struct  sockaddr);
+			struct sockaddr_in clientaddr;
+
+			int socketfd = accept(m_Listenfd, (struct sockaddr*) &clientaddr, &clilen);
+			if (socketfd < 0)
+			{
+				if (errno == EMFILE)
+				{
+					std::this_thread::sleep_for(std::chrono::milliseconds(1));
+
+					LOG_MSG("errno == EMFILE..\n");
+					continue;
+				}
+				LOG_MSG("errno %d %d-%d\n", m_Listenfd, socketfd, errno);
+				break;
+			}
+
+			{
+				std::unique_lock<std::mutex> guard(this->m_Mutex);
+				this->m_Socketfds.push_back(socketfd);
+			}
+			{
+				std::unique_lock<std::mutex> guard(this->m_ConnectMutex);
+				m_ConnectCount++;
+			}
+			//输出打印
+			log_UpdateConnect(m_ConnectCount, m_Socketfds.size());
+
+			this->m_Condition.notify_one();
+		}
+	}
+
+	//****************************************************
+	//****************************************************
 
 	//初始化线程池，子线程与主线程分离
 	void HttpSevrer::runThread()
@@ -151,16 +222,6 @@ namespace http
 			m_Thread[i]->detach();
 	}
 
-	void log_UpdateConnect(int a, int b)
-	{
-#ifdef ____WIN32_
-		char ss[50];
-		memset(ss,0,50);
-		sprintf_s(ss, "connect:%d queue:%d",a,b);
-		SetWindowTextA(GetConsoleWindow(), ss);
-#endif // ____WIN32_
-
-	}
 
 	//单个工作线程唤醒入口
 	void HttpSevrer::run(HttpSevrer* serverInstance, int threadId)
@@ -183,9 +244,105 @@ namespace http
 				log_UpdateConnect(serverInstance->m_ConnectCount, serverInstance->m_Socketfds.size());
 			}
 			//开始处理socketfd
-
+			serverInstance->runSocket(socketfd, threadId);
 		}
 
+	}
+
+	//在工作线程 处理新的连接的数据
+	void HttpSevrer::runSocket(Socket socketfd, int threadId)
+	{
+#ifdef ____WIN32_
+		//不设置shutdown调用会不成功
+		setsockopt(socketfd, SOL_SOCKET, SO_UPDATE_ACCEPT_CONTEXT, reinterpret_cast<char*>(&m_Listenfd),sizeof(m_Listenfd));
+#endif
+		//1.设置非阻塞socket
+		setNonBlockingSocket(socketfd);
+		//3.禁用Nagle算法，没有延迟
+		int value = 1;
+		setsockopt(m_Listenfd, IPPROTO_TCP, TCP_NODELAY, reinterpret_cast<char*>(&value), sizeof(value));
+
+		auto request = m_Request[threadId];
+		auto response = m_Response[threadId];
+		request->Reset();
+		response->Reset();
+		request->threadid = threadId;		
+		response->threadid = threadId;
+
+		std::string closeResult;
+		auto starttime = std::chrono::steady_clock::now();//获取当前时间
+
+		while (true)
+		{
+			//0.有无可读数据
+			int err = select_isread(socketfd, 0, 2000);
+			if (err < 0)
+			{
+				closeResult = "select_isread is null " + err;
+				break;//没有数据
+			}
+			//1.接包 粘包
+			if (err > 0)
+			{
+				//接受数据
+				err = recvSocket(socketfd, request);
+				if (err < 0)
+				{
+					closeResult = "recvSocket " + err;
+					break;
+				}
+			}
+			//2.解包
+			if (request->state <= ER_HEAD)
+			{
+				//解析包
+			}
+			//3.发包
+
+			//4.发送完毕
+			if (response->state == ES_OVER)
+			{
+				response->state = ES_FREE;
+				if (request->state == ER_ERROR)
+				{
+					closeResult = "request error";
+					break;
+				}
+				if (request->Connection == "close")
+				{
+					closeResult = "close";
+					break;
+				}
+				request->Init();
+			}
+
+			//*********************************************************
+			//生存最大时间
+			auto maxSurvivalTime = std::chrono::steady_clock::now() - starttime;//获取当前时间
+			auto durationTime = std::chrono::duration_cast<std::chrono::milliseconds>(maxSurvivalTime);
+			if (durationTime.count() > MAX_KEEP_ALIVE)
+			{
+				closeResult = "timeout"; 
+				break;
+			}
+		}
+
+		//上锁连接数
+		{
+			std::unique_lock<std::mutex> guard(this->m_ConnectMutex);
+			m_ConnectCount--;
+			LOG_MSG("closesocket:%s  connect:%d-%d \n", closeResult.c_str(), m_ConnectCount, (int)m_Socketfds.size());
+		}
+
+		//输出队列人数并关闭连接
+		log_UpdateConnect(m_ConnectCount, m_Socketfds.size());
+#ifdef ____WIN32_
+		shutdown(socketfd, SD_BOTH);
+		closesocket(socketfd);
+#else
+		shutdown(socketfd, SHUT_RDWR);
+		close(socketfd);
+#endif
 	}
 
 }

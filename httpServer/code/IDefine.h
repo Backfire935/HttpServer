@@ -29,7 +29,7 @@ using Socket = int;
 
 #define LOG_MSG							printf
 #define MAX_EXE_LEN						200
-#define MAS_KEEP_ALIVE					3005
+#define MAX_KEEP_ALIVE				3005
 #define MAX_THREAD_COUNT		8
 #define MAX_PACKAGE_LENGTH		1024//包最大长度
 #define MAX_POST_LENGTH			1024*256//最大上传长度
@@ -52,7 +52,7 @@ namespace http
 	{
 		ES_FREE = 0X00,
 		ES_SENDING = 0X01,
-		ES_OBER = 0X22
+		ES_OVER = 0X22
 	};
 
 	enum E_CONNECT_STATE//连接状态
@@ -173,8 +173,9 @@ namespace http
  	};
 #pragma pack(pop,packing)
 
-
-
+	void log_UpdateConnect(int a, int b);
+	std::vector<std::string> split(std::string srcStr, std::string pattern, bool isadd = false);
+	std::vector<std::string> split2(std::string srcStr, std::string pattern);
 }
   
 

@@ -18,13 +18,16 @@ namespace http
 		S_HTTP_BASE* m_Response[MAX_THREAD_COUNT];
 		//db::MySqlConnector* m_MySQl[MAX_THREAD_COUNT];
 
+		int recvSocket(Socket socketfd, S_HTTP_BASE* quest);
 	public:
 		HttpSevrer();
 		virtual ~HttpSevrer();
 
 		int InitSocket();
+		void runAccept();
 		void runServer();
 		void runThread();
+		void runSocket(Socket socketfd, int id);
 		static void run(HttpSevrer* serverInstance, int threadId);
 
 	};
