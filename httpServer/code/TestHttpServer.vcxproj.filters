@@ -27,6 +27,9 @@
     <ClCompile Include="HttpServer_Read.cpp">
       <Filter>code</Filter>
     </ClCompile>
+    <ClCompile Include="HttpServer_Write.cpp">
+      <Filter>code</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IDefine.h">

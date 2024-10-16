@@ -137,6 +137,7 @@
   <ItemGroup>
     <ClCompile Include="HttpServer.cpp" />
     <ClCompile Include="HttpServer_Read.cpp" />
+    <ClCompile Include="HttpServer_Write.cpp" />
     <ClCompile Include="IDefine.cpp" />
     <ClCompile Include="TestHttpServer.cpp" />
   </ItemGroup>

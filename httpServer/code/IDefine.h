@@ -1,5 +1,7 @@
 #pragma once
 
+#define DEBUG_HTTP 0
+
 #ifdef  ____WIN32_
 #include<WinSock2.h>
 #include<WS2tcpip.h>
@@ -168,6 +170,14 @@ namespace http
 		{
 			auto s = deleteString(value, ' ');
 			Connection = s;
+		}
+
+		//…Ë÷√œÏ”¶––
+		inline void SetResponseLine(int stat, std::string s)
+		{
+			version = "HTTP/1.1";
+			status = stat;
+			describe = s;
 		}
 
  	};

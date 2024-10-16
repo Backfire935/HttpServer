@@ -296,6 +296,7 @@ namespace http
 			if (request->state <= ER_HEAD)
 			{
 				//解析包
+				analyData(socketfd, request, response);
 			}
 			//3.发包
 

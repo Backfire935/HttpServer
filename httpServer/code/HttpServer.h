@@ -19,6 +19,9 @@ namespace http
 		//db::MySqlConnector* m_MySQl[MAX_THREAD_COUNT];
 
 		int recvSocket(Socket socketfd, S_HTTP_BASE* quest);
+		int analyData(Socket socketfd, S_HTTP_BASE* quest, S_HTTP_BASE* response);//处理消息头
+		int readBody(Socket socketfd, S_HTTP_BASE* quest, S_HTTP_BASE* response);//处理消息体
+		void writeData(S_HTTP_BASE* request, S_HTTP_BASE* response, const char* body, int size);
 	public:
 		HttpSevrer();
 		virtual ~HttpSevrer();
@@ -28,6 +31,8 @@ namespace http
 		void runServer();
 		void runThread();
 		void runSocket(Socket socketfd, int id);
+
+
 		static void run(HttpSevrer* serverInstance, int threadId);
 
 	};
