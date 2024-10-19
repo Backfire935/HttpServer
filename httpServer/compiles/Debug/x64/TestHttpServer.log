@@ -3,27 +3,31 @@
   HttpServer_Write.cpp
   IDefine.cpp
   TestHttpServer.cpp
-D:\test\CPlusPlus\HttpServer\httpServer\code\IDefine.cpp(11,26): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
-D:\test\CPlusPlus\HttpServer\httpServer\code\IDefine.cpp(39,12): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
-D:\test\CPlusPlus\HttpServer\httpServer\code\IDefine.cpp(47,30): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
-D:\test\CPlusPlus\HttpServer\httpServer\code\IDefine.cpp(58,12): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+D:\test\CPlusPlus\HttpServer\httpServer\code\IDefine.cpp(39,26): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+D:\test\CPlusPlus\HttpServer\httpServer\code\IDefine.cpp(68,12): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+D:\test\CPlusPlus\HttpServer\httpServer\code\IDefine.cpp(71,21): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+D:\test\CPlusPlus\HttpServer\httpServer\code\IDefine.cpp(76,30): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+D:\test\CPlusPlus\HttpServer\httpServer\code\IDefine.cpp(87,12): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+D:\test\CPlusPlus\HttpServer\httpServer\code\IDefine.cpp(89,20): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
 D:\test\CPlusPlus\HttpServer\httpServer\code\HttpServer_Read.cpp(74,11): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
 D:\test\CPlusPlus\HttpServer\httpServer\code\HttpServer_Read.cpp(81,21): warning C4553: “==”: 未使用表达式结果；是否打算使用“=”?
+D:\test\CPlusPlus\HttpServer\httpServer\code\HttpServer_Read.cpp(154,89): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+D:\test\CPlusPlus\HttpServer\httpServer\code\HttpServer_Read.cpp(210,11): warning C4477: “printf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 4 拥有了类型“unsigned __int64”
+D:\test\CPlusPlus\HttpServer\httpServer\code\HttpServer_Read.cpp(210,11): message : 请考虑在格式字符串中使用“%zd”
 D:\test\CPlusPlus\HttpServer\httpServer\code\HttpServer_Write.cpp(39,13): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
-D:\test\CPlusPlus\HttpServer\httpServer\code\HttpServer_Read.cpp(198,11): warning C4477: “printf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 4 拥有了类型“unsigned __int64”
-D:\test\CPlusPlus\HttpServer\httpServer\code\HttpServer_Read.cpp(198,11): message : 请考虑在格式字符串中使用“%zd”
 D:\test\CPlusPlus\HttpServer\httpServer\code\HttpServer.cpp(67,12): warning C4477: “printf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“Socket”
 D:\test\CPlusPlus\HttpServer\httpServer\code\HttpServer.cpp(67,12): message : 请考虑在格式字符串中使用“%lld”
 D:\test\CPlusPlus\HttpServer\httpServer\code\HttpServer.cpp(67,12): message : 请考虑在格式字符串中使用“%Id”
 D:\test\CPlusPlus\HttpServer\httpServer\code\HttpServer.cpp(67,12): message : 请考虑在格式字符串中使用“%I64d”
-D:\test\CPlusPlus\HttpServer\httpServer\code\HttpServer.cpp(164,30): warning C4244: “参数”: 从“Socket”转换到“int”，可能丢失数据
-D:\test\CPlusPlus\HttpServer\httpServer\code\HttpServer.cpp(182,17): warning C4244: “初始化”: 从“SOCKET”转换到“int”，可能丢失数据
-D:\test\CPlusPlus\HttpServer\httpServer\code\HttpServer.cpp(192,13): warning C4477: “printf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“Socket”
-D:\test\CPlusPlus\HttpServer\httpServer\code\HttpServer.cpp(192,13): message : 请考虑在格式字符串中使用“%lld”
-D:\test\CPlusPlus\HttpServer\httpServer\code\HttpServer.cpp(192,13): message : 请考虑在格式字符串中使用“%Id”
-D:\test\CPlusPlus\HttpServer\httpServer\code\HttpServer.cpp(192,13): message : 请考虑在格式字符串中使用“%I64d”
-D:\test\CPlusPlus\HttpServer\httpServer\code\HttpServer.cpp(205,54): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
-D:\test\CPlusPlus\HttpServer\httpServer\code\HttpServer.cpp(244,87): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
-D:\test\CPlusPlus\HttpServer\httpServer\code\HttpServer.cpp(339,53): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+D:\test\CPlusPlus\HttpServer\httpServer\code\HttpServer.cpp(166,30): warning C4244: “参数”: 从“Socket”转换到“int”，可能丢失数据
+D:\test\CPlusPlus\HttpServer\httpServer\code\HttpServer.cpp(184,17): warning C4244: “初始化”: 从“SOCKET”转换到“int”，可能丢失数据
+D:\test\CPlusPlus\HttpServer\httpServer\code\HttpServer.cpp(194,13): warning C4477: “printf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“Socket”
+D:\test\CPlusPlus\HttpServer\httpServer\code\HttpServer.cpp(194,13): message : 请考虑在格式字符串中使用“%lld”
+D:\test\CPlusPlus\HttpServer\httpServer\code\HttpServer.cpp(194,13): message : 请考虑在格式字符串中使用“%Id”
+D:\test\CPlusPlus\HttpServer\httpServer\code\HttpServer.cpp(194,13): message : 请考虑在格式字符串中使用“%I64d”
+D:\test\CPlusPlus\HttpServer\httpServer\code\HttpServer.cpp(207,54): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+D:\test\CPlusPlus\HttpServer\httpServer\code\HttpServer.cpp(246,87): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+D:\test\CPlusPlus\HttpServer\httpServer\code\HttpServer.cpp(346,53): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+D:\test\CPlusPlus\HttpServer\httpServer\code\HttpServer_Write.cpp(99): warning C4715: “http::HttpSevrer::sendSocket”: 不是所有的控件路径都返回值
 D:\test\CPlusPlus\HttpServer\httpServer\code\HttpServer_Read.cpp(48): warning C4715: “http::HttpSevrer::recvSocket”: 不是所有的控件路径都返回值
   TestHttpServer.vcxproj -> D:\test\CPlusPlus\HttpServer\httpServer\exe\TestHttpServer.exe

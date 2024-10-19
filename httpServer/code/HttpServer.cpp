@@ -113,6 +113,8 @@ namespace http
 
 	void HttpSevrer::runServer()
 	{
+		initPath();
+
 		m_ConnectCount = 0;
 
 		//1.初始化socket
@@ -263,7 +265,7 @@ namespace http
 		setsockopt(m_Listenfd, IPPROTO_TCP, TCP_NODELAY, reinterpret_cast<char*>(&value), sizeof(value));
 
 		auto request = m_Request[threadId];
-		auto response = m_Response[threadId];
+		auto response = m_Response[threadId]; 
 		request->Reset();
 		response->Reset();
 		request->threadid = threadId;		
@@ -299,7 +301,12 @@ namespace http
 				analyData(socketfd, request, response);
 			}
 			//3.发包
-
+			err = sendSocket(socketfd, response, threadId);
+			if (err < 0)
+			{
+				closeResult = "sendSocket";
+				break;
+			}
 			//4.发送完毕
 			if (response->state == ES_OVER)
 			{

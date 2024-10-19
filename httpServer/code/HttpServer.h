@@ -22,6 +22,7 @@ namespace http
 		int analyData(Socket socketfd, S_HTTP_BASE* quest, S_HTTP_BASE* response);//处理消息头
 		int readBody(Socket socketfd, S_HTTP_BASE* quest, S_HTTP_BASE* response);//处理消息体
 		void writeData(S_HTTP_BASE* request, S_HTTP_BASE* response, const char* body, int size);
+		int sendSocket(Socket socketfd, S_HTTP_BASE* response, int threadId);
 	public:
 		HttpSevrer();
 		virtual ~HttpSevrer();

@@ -36,7 +36,11 @@ using Socket = int;
 #define MAX_PACKAGE_LENGTH		1024//包最大长度
 #define MAX_POST_LENGTH			1024*256//最大上传长度
 #define MAX_BUF							1024*512//缓冲区大小
-#define MAX_ONES_BUF					1024*128//临时缓存
+#define MAX_ONES_BUF					1024*1024*100//临时缓存 100MB 下载文件的大小必须小于这个数字
+
+#ifndef S_ISREG
+#define S_ISREG(m) (((m)&S_IFREG) == S_IFREG)
+#endif
 
 namespace http
 {
@@ -186,6 +190,11 @@ namespace http
 	void log_UpdateConnect(int a, int b);
 	std::vector<std::string> split(std::string srcStr, std::string pattern, bool isadd = false);
 	std::vector<std::string> split2(std::string srcStr, std::string pattern);
+
+	bool is_file(const std::string& path);
+	void read_file(const std::string& path, std::string& out);
+	bool read_Quest(const std::string& path, std::string& out);
+	void initPath(); 
 }
   
 

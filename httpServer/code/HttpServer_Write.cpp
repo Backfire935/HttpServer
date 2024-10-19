@@ -53,4 +53,48 @@ namespace http
 
 		}
 	 }
+	int HttpSevrer::sendSocket(Socket socketfd, S_HTTP_BASE* response, int threadId)
+	{
+		if (response->state != ES_SENDING) return 0;
+		int len = response->pos_tail - response->pos_head;
+		if (len <= 0) return 0;
+
+		int sendBytes = send(socketfd, &response->buf[response->pos_head], len, 0);
+		if (sendBytes > 0)
+		{
+			response->pos_head += sendBytes;
+			if (response->pos_head == response->pos_tail)
+			{
+				//初始化响应数据
+				response->Reset();
+				response->state = ES_OVER;
+			}
+			return 0;
+		}
+
+		LOG_MSG("sendSocket err %d-%d\n",len ,sendBytes);
+#ifdef  ____WIN32_
+		if (sendBytes < 0)
+		{
+			int err = WSAGetLastError();
+			if (err == WSAEINTR) return 0;
+			else if (err == WSAEWOULDBLOCK) return 0;
+			else return -1;
+		}
+		else if (sendBytes == 0)
+		{
+			return -2;
+		}
+#else
+		if (sendBytes < 0)//出错
+			if (errno == EINTR) return 0;//被信号中断
+			else if (errno == EAGAIN) return 0;//没有数据 请稍后再试
+			else return -1;
+		else if(sendBytes == 0)
+			{
+				return -2;
+		    }
+#endif //  ____WIN32_
+		
+	}
 }

@@ -145,9 +145,21 @@ namespace http {
 		if (request->method != "POST" && request->method != "PUT")
 		{
 			request->state = ER_OVER;
-			//获取数据
-			response->SetResponseLine(200, "OK");
-			this->writeData(request, response, "ok", 2);
+
+			request->temp_str.clear();
+			bool isExist = read_Quest(request->url, request->temp_str);
+			if (isExist)
+			{
+				response->SetResponseLine(200,"OK");
+				this->writeData(request, response, request->temp_str.c_str(), request->temp_str.size());
+			 }
+			else
+			{
+				//获取数据
+				response->SetResponseLine(404, "Failed");
+				this->writeData(request, response, "err1", 4); 
+			}
+
 			return 0;
 		}
 
