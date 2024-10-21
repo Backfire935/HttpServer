@@ -56,7 +56,7 @@ namespace http
 		int errorcode = WSAStartup(MAKEWORD(2,2), &wsData);
 		if (errorcode != 0)
 		{
-			LOG_MSG("WSAStartup error, status:%d\n", errorcode);
+			LOG_MSG(1,"WSAStartup error, status:%d\n", errorcode);
 			return -1;
 		}
 #endif
@@ -64,7 +64,7 @@ namespace http
 		m_Listenfd = socket(AF_INET, SOCK_STREAM, 0);
 		if (m_Listenfd < 0)
 		{
-			LOG_MSG("socket error, status:%d\n", m_Listenfd);
+			LOG_MSG(1,"socket error, status:%d\n", m_Listenfd);
 			return -2;
 		}
 
@@ -93,7 +93,7 @@ namespace http
 		int err = ::bind(m_Listenfd, (struct sockaddr*)&serAddr, sizeof(serAddr));//绑定
 		if (err < 0)
 		{
-			LOG_MSG("bind error, status:%d\n", err);
+			LOG_MSG(1,"bind error, status:%d\n", err);
 			return -3;
 		}
 
@@ -102,7 +102,7 @@ namespace http
 		err = listen(m_Listenfd, SOMAXCONN);
 		if (err < 0)
 		{
-			LOG_MSG("listen error, status:%d\n", err);
+			LOG_MSG(1,"listen error, status:%d\n", err);
 			return -4;
 		}
 
@@ -131,7 +131,7 @@ namespace http
 #else
 			close(m_Listenfd);
 #endif // ____WIN32_
-			LOG_MSG("Init socket error in line %d err status:%d\n", __LINE__,err);
+			LOG_MSG(1,"Init socket error in line %d err status:%d\n", __LINE__,err);
 			return;
 		}
 		//2.初始化请求和响应的数据对象
@@ -188,10 +188,10 @@ namespace http
 				{
 					std::this_thread::sleep_for(std::chrono::milliseconds(1));
 
-					LOG_MSG("errno == EMFILE..\n");
+					LOG_MSG(1,"errno == EMFILE..\n");
 					continue;
 				}
-				LOG_MSG("errno %d %d-%d\n", m_Listenfd, socketfd, errno);
+				LOG_MSG(1,"errno %d %d-%d\n", m_Listenfd, socketfd, errno);
 				break;
 			}
 
@@ -235,13 +235,13 @@ namespace http
 				std::unique_lock<std::mutex> guard(serverInstance->m_Mutex);
 				while (serverInstance->m_Socketfds.empty())//防止虚假唤醒，如果链表中没有数据就wait，有数据就往下处理
 				{
-					LOG_MSG("************************** thread wait...%d \n", threadId);
+					LOG_MSG(1,"************************** thread wait...%d \n", threadId);
 					serverInstance->m_Condition.wait(guard);
 				}
 				socketfd = serverInstance->m_Socketfds.front();//获取链表头部第一个数据
 				serverInstance->m_Socketfds.pop_front();//删除
 
-				LOG_MSG("************************** thread awake...%d-%d\n", (int)socketfd, threadId);
+				LOG_MSG(1,"************************** thread awake...%d-%d\n", (int)socketfd, threadId);
 				//输出打印
 				log_UpdateConnect(serverInstance->m_ConnectCount, serverInstance->m_Socketfds.size());
 			}
@@ -310,7 +310,6 @@ namespace http
 			//4.发送完毕
 			if (response->state == ES_OVER)
 			{
-				response->state = ES_FREE;
 				if (request->state == ER_ERROR)
 				{
 					closeResult = "request error";
@@ -321,6 +320,7 @@ namespace http
 					closeResult = "close";
 					break;
 				}
+				response->state = ES_FREE;
 				request->Init();
 			}
 
@@ -339,7 +339,7 @@ namespace http
 		{
 			std::unique_lock<std::mutex> guard(this->m_ConnectMutex);
 			m_ConnectCount--;
-			LOG_MSG("closesocket:%s  connect:%d-%d \n", closeResult.c_str(), m_ConnectCount, (int)m_Socketfds.size());
+			LOG_MSG(2,"closesocket:%s  connect:%d-%d \n", closeResult.c_str(), m_ConnectCount, (int)m_Socketfds.size());
 		}
 
 		//输出队列人数并关闭连接

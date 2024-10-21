@@ -121,7 +121,9 @@ namespace http
 		auto size = fs.tellg(); // 获取文件大小
 		fs.seekg(0);// 将文件流的读取指针重新定位到文件开头
 		out.resize(static_cast<size_t>(size));// 调整输出字符串的大小以适应文件内容
+		LOG_MSG(1,"应读取文件%skb\n", std::to_string(size).c_str());
 		fs.read(&out[0], static_cast<std::streamsize>(size)); // 从文件中读取内容到字符串
+		LOG_MSG(1, "存入缓存%dkb\n", out.size());
 	}
 
 	//读取请求文件
@@ -138,6 +140,11 @@ namespace http
 		if (is_file(sub_path))
 		{
 			read_file(sub_path, out);
+			if (out.size() > MAX_BUF)//超最大发送缓存了，存下来也发不出去
+			{
+				LOG_MSG(3,"文件大小:%d 缓冲区MAX_BUF大小:%d 请调整\n", out.size(), MAX_BUF);
+				return false;
+			}
 			return true;
 		}
 		return false;

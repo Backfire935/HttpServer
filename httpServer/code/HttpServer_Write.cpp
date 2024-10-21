@@ -28,7 +28,11 @@ namespace http
 	{
 		if (response->state != ES_FREE) return;
 		if (body == NULL) return;
-		if (size <= 0 || size > MAX_ONES_BUF) return;
+		if (size <= 0 || size > MAX_BUF || strlen(body) > MAX_BUF)
+		{
+			LOG_MSG(3, ",缓冲区MAX_BUF大小:%d 文件大小%d--%dkb.请调整缓冲区大小\n", MAX_BUF, strlen(body), size);//不拷贝数据了，反正烤不完
+			return;
+		}
 
 		//1.设置响应数据消息体长度
 		request->SetHeader("Content-Length", std::to_string(size));
@@ -39,8 +43,15 @@ namespace http
 		int size2 = stream.size();//消息头长度
 
 #ifdef DEBUG_HTTP
-		LOG_MSG("Response=======================%d\n", request->threadid);
-		LOG_MSG("%s%s\n", stream.c_str(), body);
+		if (strlen(body) > size)
+		{
+			LOG_MSG(2, "缓冲区字符串长度未调整为文件大小,文件读入失败\n");
+			return;
+		}
+		LOG_MSG(1,"消息体大小是 %d %d 消息头大小是 %d\n", strlen(body), size, size2);
+		LOG_MSG(1,"Response=======================%d\n", request->threadid);
+		LOG_MSG(1,"%s%s\n", stream.c_str(), body);
+
 #endif // DEBUG_HTTP
 		//填充数据
 		if (response->pos_tail + size2 + size < MAX_BUF)
@@ -69,10 +80,11 @@ namespace http
 				response->Reset();
 				response->state = ES_OVER;
 			}
+			LOG_MSG(2, "服务端数据发送完毕,发送数据量%dkb--%.1lf MB!\n", sendBytes, sendBytes/1024);
 			return 0;
 		}
 
-		LOG_MSG("sendSocket err %d-%d\n",len ,sendBytes);
+		LOG_MSG(1,"sendSocket err %d-%d\n",len ,sendBytes);
 #ifdef  ____WIN32_
 		if (sendBytes < 0)
 		{

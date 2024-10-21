@@ -15,7 +15,12 @@ namespace http {
 				request->pos_head = 0;
 				request->pos_tail = 0;
 			}
-			if (request->pos_tail + recvBytes >= MAX_BUF) return -1;//传来的数据超过了缓冲区的最大容量
+			LOG_MSG(2, "收到客户端数据大小:%dkb \n", request->pos_tail + recvBytes);
+			if (request->pos_tail + recvBytes >= MAX_ONES_BUF)
+			{
+				LOG_MSG(3, "上传数据量:%d超过缓存MAX_ONES_BUF大小:%d \n", request->pos_tail + recvBytes, MAX_ONES_BUF);
+				return -1;//传来的数据超过了缓冲区的最大容量
+			}
 			memcpy(&request->buf[request->pos_tail], request->tempBuf, recvBytes);
 			request->pos_tail += recvBytes;
 			return 0;
@@ -124,18 +129,18 @@ namespace http {
 
 		//输出***********************************************************
 #ifdef DEBUG_HTTP
-		LOG_MSG("Reques======================%d-%d\n",(int)socketfd, request->threadid);
-		LOG_MSG("%s %s %s\n", request->method.c_str(), request->url.c_str(), request->version.c_str());
+		LOG_MSG(1,"Reques======================%d-%d\n",(int)socketfd, request->threadid);
+		LOG_MSG(1,"%s %s %s\n", request->method.c_str(), request->url.c_str(), request->version.c_str());
 
 		auto it = request->head.begin();
 		while (it != request->head.end())
 		{
 			auto a = it->first;
 			auto b = it->second;
-			LOG_MSG("%s:%s\n",a.c_str(), b.c_str());
+			LOG_MSG(1,"%s:%s\n",a.c_str(), b.c_str());
 			++it;
 		}
-		LOG_MSG("\r\n");
+		LOG_MSG(1,"\r\n");
 
 #endif // DEBUG_HTTP
 
@@ -150,14 +155,15 @@ namespace http {
 			bool isExist = read_Quest(request->url, request->temp_str);
 			if (isExist)
 			{
-				response->SetResponseLine(200,"OK");
+				response->SetResponseLine(201,"OK");
+				LOG_MSG(1,"文件名:%s\n", request->url.c_str());
 				this->writeData(request, response, request->temp_str.c_str(), request->temp_str.size());
 			 }
 			else
 			{
 				//获取数据
 				response->SetResponseLine(404, "Failed");
-				this->writeData(request, response, "err1", 4); 
+				this->writeData(request, response, "err1", 4);
 			}
 
 			return 0;
@@ -207,7 +213,7 @@ namespace http {
 		std::string body(request->buf, request->pos_head, request->Content_length);
 		request->pos_head += request->Content_length;
 		request->state = ER_OVER;
-		LOG_MSG("readBody %d-%d %s-%d \n", request->pos_head, request->pos_tail, body.c_str(), body.size());
+		LOG_MSG(1,"readBody %d-%d %s-%d \n", request->pos_head, request->pos_tail, body.c_str(), body.size());
 
 		//响应数据给前端
 		response->SetResponseLine(200, "OK");

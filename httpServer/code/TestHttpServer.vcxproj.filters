@@ -38,5 +38,6 @@
     <ClInclude Include="HttpServer.h">
       <Filter>code</Filter>
     </ClInclude>
+    <ClInclude Include="LogFile.hpp" />
   </ItemGroup>
 </Project>

@@ -27,16 +27,15 @@ using Socket = int;
 #include<fstream>
 #include<iostream>
 #include<string>
+#include"LogFile.hpp"
 
-
-#define LOG_MSG							printf
 #define MAX_EXE_LEN						200
 #define MAX_KEEP_ALIVE				3005
 #define MAX_THREAD_COUNT		8
 #define MAX_PACKAGE_LENGTH		1024//包最大长度
 #define MAX_POST_LENGTH			1024*256//最大上传长度
-#define MAX_BUF							1024*512//缓冲区大小
-#define MAX_ONES_BUF					1024*1024*100//临时缓存 100MB 下载文件的大小必须小于这个数字
+#define MAX_BUF							1024*1024*1000//缓冲区大小 1000MB 服务器上提供给客户端下载的文件大小需要小于该值
+#define MAX_ONES_BUF					1024*1024*4//临时缓存 4MB 客户端想要上传的文件大小需要小于该值
 
 #ifndef S_ISREG
 #define S_ISREG(m) (((m)&S_IFREG) == S_IFREG)
