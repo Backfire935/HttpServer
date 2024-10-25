@@ -48,7 +48,7 @@ namespace http
 			LOG_MSG(2, "缓冲区字符串长度未调整为文件大小,文件读入失败\n");
 			return;
 		}
-		LOG_MSG(1,"消息体大小是 %d %d 消息头大小是 %d\n", strlen(body), size, size2);
+		LOG_MSG(1,"消息体大小是 %dkb %dkb 消息头大小是 %dkb\n", strlen(body), size, size2);
 		LOG_MSG(1,"Response=======================%d\n", request->threadid);
 		LOG_MSG(1,"%s%s\n", stream.c_str(), body);
 
@@ -80,7 +80,7 @@ namespace http
 				response->Reset();
 				response->state = ES_OVER;
 			}
-			LOG_MSG(2, "服务端数据发送完毕,发送数据量%dkb--%.1lf MB!\n", sendBytes, sendBytes/1024);
+			LOG_MSG(2, "服务端数据发送完毕,发送数据量%dkb!\n", sendBytes);
 			return 0;
 		}
 
