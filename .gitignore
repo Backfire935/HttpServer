@@ -1,3 +1,6 @@
-httpServer/code/.vs/
-httpServer/compiles/
-httpServer/exe/
+HttpServer/code/.vs/
+HttpServer/compiles/
+HttpServer/exe/
+HttpClient/code/.vs/
+HttpClient/compiles/
+HttpClient/exe/

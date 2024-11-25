@@ -108,7 +108,7 @@
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;____WIN32_;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\..\share;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\test\CPlusPlus\HttpServer\share;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard>stdcpp14</LanguageStandard>
@@ -136,16 +136,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\share\IDefine.cpp" />
     <ClCompile Include="HttpServer.cpp" />
     <ClCompile Include="HttpServer_Read.cpp" />
     <ClCompile Include="HttpServer_Write.cpp" />
-    <ClCompile Include="IDefine.cpp" />
     <ClCompile Include="TestHttpServer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\share\IDefine.h" />
+    <ClInclude Include="..\..\share\LogFile.hpp" />
     <ClInclude Include="HttpServer.h" />
-    <ClInclude Include="IDefine.h" />
-    <ClInclude Include="LogFile.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

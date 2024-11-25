@@ -18,9 +18,6 @@
     <ClCompile Include="TestHttpServer.cpp">
       <Filter>code</Filter>
     </ClCompile>
-    <ClCompile Include="IDefine.cpp">
-      <Filter>code</Filter>
-    </ClCompile>
     <ClCompile Include="HttpServer.cpp">
       <Filter>code</Filter>
     </ClCompile>
@@ -30,14 +27,19 @@
     <ClCompile Include="HttpServer_Write.cpp">
       <Filter>code</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\share\IDefine.cpp">
+      <Filter>share</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="IDefine.h">
-      <Filter>code</Filter>
-    </ClInclude>
     <ClInclude Include="HttpServer.h">
       <Filter>code</Filter>
     </ClInclude>
-    <ClInclude Include="LogFile.hpp" />
+    <ClInclude Include="..\..\share\IDefine.h">
+      <Filter>share</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\share\LogFile.hpp">
+      <Filter>share</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

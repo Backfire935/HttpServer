@@ -1,5 +1,5 @@
-D:\test\CPlusPlus\HttpServer\httpServer\code\HttpServer.cpp;D:\test\CPlusPlus\HttpServer\httpServer\compiles\Debug\x64\HttpServer.obj
-D:\test\CPlusPlus\HttpServer\httpServer\code\HttpServer_Read.cpp;D:\test\CPlusPlus\HttpServer\httpServer\compiles\Debug\x64\HttpServer_Read.obj
-D:\test\CPlusPlus\HttpServer\httpServer\code\HttpServer_Write.cpp;D:\test\CPlusPlus\HttpServer\httpServer\compiles\Debug\x64\HttpServer_Write.obj
-D:\test\CPlusPlus\HttpServer\httpServer\code\IDefine.cpp;D:\test\CPlusPlus\HttpServer\httpServer\compiles\Debug\x64\IDefine.obj
-D:\test\CPlusPlus\HttpServer\httpServer\code\TestHttpServer.cpp;D:\test\CPlusPlus\HttpServer\httpServer\compiles\Debug\x64\TestHttpServer.obj
+D:\test\CPlusPlus\HttpServer\share\IDefine.cpp;D:\test\CPlusPlus\HttpServer\HttpServer\compiles\Debug\x64\IDefine.obj
+D:\test\CPlusPlus\HttpServer\HttpServer\code\HttpServer.cpp;D:\test\CPlusPlus\HttpServer\HttpServer\compiles\Debug\x64\HttpServer.obj
+D:\test\CPlusPlus\HttpServer\HttpServer\code\HttpServer_Read.cpp;D:\test\CPlusPlus\HttpServer\HttpServer\compiles\Debug\x64\HttpServer_Read.obj
+D:\test\CPlusPlus\HttpServer\HttpServer\code\HttpServer_Write.cpp;D:\test\CPlusPlus\HttpServer\HttpServer\compiles\Debug\x64\HttpServer_Write.obj
+D:\test\CPlusPlus\HttpServer\HttpServer\code\TestHttpServer.cpp;D:\test\CPlusPlus\HttpServer\HttpServer\compiles\Debug\x64\TestHttpServer.obj

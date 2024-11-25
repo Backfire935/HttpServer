@@ -2,7 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>D:\test\CPlusPlus\HttpServer\httpServer\exe\TestHttpServer.exe</FullPath>
+      <FullPath>D:\test\CPlusPlus\HttpServer\HttpServer\exe\TestHttpServer.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />

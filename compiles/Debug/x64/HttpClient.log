@@ -1,0 +1,22 @@
+﻿D:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(531,5): warning MSB8028: 中间目录(..\compiles\Debug\x64\)包含从另一个项目(HttpClient.vcxproj)共享的文件。   这会导致错误的清除和重新生成行为。
+  IDefine.cpp
+D:\test\CPlusPlus\HttpServer\share\IDefine.cpp(39,26): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+D:\test\CPlusPlus\HttpServer\share\IDefine.cpp(68,12): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+D:\test\CPlusPlus\HttpServer\share\IDefine.cpp(71,21): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+D:\test\CPlusPlus\HttpServer\share\IDefine.cpp(76,30): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+D:\test\CPlusPlus\HttpServer\share\IDefine.cpp(87,12): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+D:\test\CPlusPlus\HttpServer\share\IDefine.cpp(89,20): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+D:\test\CPlusPlus\HttpServer\share\IDefine.cpp(126,3): warning C4477: “snprintf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“unsigned __int64”
+      D:\test\CPlusPlus\HttpServer\share\IDefine.cpp(126,3):
+      请考虑在格式字符串中使用“%zd”
+  
+D:\test\CPlusPlus\HttpServer\share\IDefine.cpp(145,5): warning C4477: “snprintf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“unsigned __int64”
+      D:\test\CPlusPlus\HttpServer\share\IDefine.cpp(145,5):
+      请考虑在格式字符串中使用“%zd”
+  
+  HttpClient.cpp
+D:\test\CPlusPlus\HttpServer\HttpClient\code\HttpClient.cpp(41,20): warning C4244: “=”: 从“SOCKET”转换到“int”，可能丢失数据
+D:\test\CPlusPlus\HttpServer\HttpClient\code\HttpClient.cpp(46,31): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  TestHttpClient.cpp
+  正在生成代码...
+  HttpClient.vcxproj -> D:\test\CPlusPlus\HttpServer\exe\TestHttpClient.exe
