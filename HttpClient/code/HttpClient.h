@@ -22,6 +22,9 @@ namespace http
 		std::condition_variable m_Condition;//条件变量,用来唤醒线程
 		S_HTTP_BASE* m_Request;//请求数据-发送给服务器
 		S_HTTP_BASE* m_Response;//响应数据-接收服务器返回的数据
+
+		void writeData(S_TEST_BASE* data);
+		void pushRequest(std::string method, std::string url, int type, const char* c, const int len);
 	private:
 		int state;//客户端连接状态
 		int socketfd;//客户端创建的socketfd
@@ -32,4 +35,7 @@ namespace http
 		void ConnectServer();
 		static void run(HttpClient* c);
 	};
+
+	extern std::string serverIp;
+	extern int serverport;
 }

@@ -3,15 +3,14 @@
 namespace http
 {
 
-	std::string serverIp = "127.0.0.1";
-	int serverport = 8080;
-
 	HttpClient::HttpClient()
 	{
 	}
 	HttpClient::~HttpClient()
 	{
 	}
+
+	
 
 	void HttpClient::InitSocket()
 	{
@@ -59,7 +58,30 @@ namespace http
 
 	void HttpClient::run(HttpClient* c)//线程函数
 	{
-		
+		while (true)
+		{
+			S_TEST_BASE* data;
+			{
+				std::unique_lock<std::mutex> guard(c->m_Mutex);
+				while (c->m_HttpDatas.empty())
+				{
+					c->m_Condition.wait(guard);//等待数据
+				}
+				data = c->m_HttpDatas.front();
+				c->m_HttpDatas.pop_front();
+			}
+
+			//先连接
+			if (c->state != EC_CONNECT)
+			{
+				c->ConnectServer();
+			}
+
+			//生产数据 写请求数据
+			//运行socket
+
+
+		}
 	}
 
 }

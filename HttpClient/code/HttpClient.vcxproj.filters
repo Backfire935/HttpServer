@@ -19,6 +19,9 @@
     <ClCompile Include="..\..\share\IDefine.cpp">
       <Filter>share</Filter>
     </ClCompile>
+    <ClCompile Include="HttpClient_Write.cpp">
+      <Filter>code</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HttpClient.h">

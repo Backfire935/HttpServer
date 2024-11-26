@@ -137,6 +137,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\share\IDefine.cpp" />
     <ClCompile Include="HttpClient.cpp" />
+    <ClCompile Include="HttpClient_Write.cpp" />
     <ClCompile Include="TestHttpClient.cpp" />
   </ItemGroup>
   <ItemGroup>
