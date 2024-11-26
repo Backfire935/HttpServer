@@ -5,7 +5,7 @@ VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestHttpServer", "TestHttpServer.vcxproj", "{C8F6C296-B19C-45EE-BE1F-722962DA210A}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HttpClient", "..\..\HttpClient\HttpClient.vcxproj", "{FB78D93D-29C0-498C-BACF-9E8920AFABD3}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestHttpClient", "..\..\HttpClient\code\HttpClient.vcxproj", "{FB78D93D-29C0-498C-BACF-9E8920AFABD3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
