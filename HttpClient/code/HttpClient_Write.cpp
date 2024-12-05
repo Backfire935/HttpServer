@@ -48,7 +48,7 @@ namespace http
 
 
 		S_TEST_BASE* data = new S_TEST_BASE();
-		memcpy(data, 0 ,sizeof(S_TEST_BASE));
+		memset(data, 0 ,sizeof(S_TEST_BASE));
 
 		int index = 0;
 		//请求行 请求头 空行
@@ -68,5 +68,32 @@ namespace http
 		}
 
 	} 
+
+	int HttpClient::sendSocket()
+	{
+		int len = m_Request->pos_tail - m_Request->pos_head;
+		if (len <= 0) return 0;
+
+		int sendBytes = send(socketfd, &m_Request->buf[m_Request->pos_head], len, 0);//发送数据
+		if (sendBytes > 0)
+		{
+			m_Request->pos_head += sendBytes;
+			return 0;
+		}
+		else if (sendBytes < 0)
+		{
+			int err = WSAGetLastError();
+			if (err == WSAEINTR) return 0;
+			else if (err == WSAEWOULDBLOCK) return 0;
+			else return -1;
+		}
+		else
+		{
+			return -2;
+		}
+
+	}
+
+
 
 }

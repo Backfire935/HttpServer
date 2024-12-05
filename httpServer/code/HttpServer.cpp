@@ -151,24 +151,7 @@ namespace http
 		runAccept();
 	}
 
-	int select_isread(Socket socketfd, int timeout_s, int timeout_u)
-	{
-		fd_set fds;
-		FD_ZERO(&fds);
-		FD_SET(socketfd, &fds);
 
-		timeval tv;
-		tv.tv_sec = timeout_s;
-		tv.tv_usec = timeout_u;
-
-		while (true)
-		{
-			int err = select(socketfd + 1, &fds, NULL, NULL, &tv);
-			if (err < 0 && errno == EINTR) continue;
-			return err;
-		}
-		return -1;
-	}
 
 	//主线程监听新的连接，并派发任务
 	void HttpSevrer::runAccept()

@@ -71,7 +71,7 @@ namespace http
 	//请求和响应数据结构体
 	struct S_HTTP_BASE
 	{
-		int state;
+		int state = ER_FREE;
 		char buf[MAX_BUF];//消息体
 		char tempBuf[MAX_ONES_BUF];//组装消息体的临时缓冲区
 		std::string temp_str;
@@ -194,6 +194,7 @@ namespace http
 	void read_file(const std::string& path, std::string& out);
 	bool read_Quest(const std::string& path, std::string& out);
 	void initPath(); 
+	int select_isread(Socket socketfd, int timeout_s, int timeout_u);
 }
   
 

@@ -22,6 +22,9 @@
     <ClCompile Include="HttpClient_Write.cpp">
       <Filter>code</Filter>
     </ClCompile>
+    <ClCompile Include="HttpClient_Read.cpp">
+      <Filter>code</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HttpClient.h">

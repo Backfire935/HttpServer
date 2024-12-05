@@ -162,7 +162,8 @@ namespace http {
 			else
 			{
 				//获取数据
-				response->SetResponseLine(404, "Failed");
+				LOG_MSG(3, "获取文件:%s失败\n", request->url.c_str());
+				response->SetResponseLine(406, "Failed");
 				this->writeData(request, response, "err1", 4);
 			}
 

@@ -33,6 +33,11 @@ namespace http
 
 		void InitSocket();
 		void ConnectServer();
+		void runSocket();
+		int recvSocket();
+		int analyData();
+		int readBody();
+		int sendSocket();
 		static void run(HttpClient* c);
 	};
 
