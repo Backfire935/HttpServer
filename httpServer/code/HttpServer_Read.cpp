@@ -103,6 +103,11 @@ namespace http {
 		std::vector<std::string> line = split(arr[0], " ",true);
 		request->SetRequestLine(line);
 		//2.2解析头
+		//std::vector<std::string> head = split(arr[0], " ");
+		//request->method = head[0];
+		//request->url = head[1];
+		//request->version = head[2];
+
 		for ( int i =1; i< arr.size()-1; i++)
 		{
 			std::vector<std::string> head = split2(arr[i], ":");
@@ -165,9 +170,10 @@ namespace http {
 				LOG_MSG(3, "获取文件:%s失败\n", request->url.c_str());
 				response->SetResponseLine(406, "Failed");
 				this->writeData(request, response, "err1", 4);
+				return 0;
 			}
 
-			return 0;
+			
 		}
 
 		request->state = ER_HEAD;

@@ -38,7 +38,7 @@ namespace http
 		}
 
 		std::string stream;
-		stream += method + "   " + url + " HTTP/1.1\r\n";//请求行
+		stream += method + " " + url + " HTTP/1.1\r\n";//请求行
 		stream += "Host: " + http::serverIp + ":" + std::to_string(http::serverport) + "\r\n";//请求头
 		stream += content_length;
 		stream += content_type;
